@@ -27,15 +27,9 @@ jobs:
       run: dotnet build --no-restore --configuration Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Upload CMDHelper.exe
-      uses: actions/upload-artifact@v3
-      with:
-        name: CMDHelper-executable
-        path: bin/Release/net462/CMDHelper.exe
     - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-artifact@v4
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: bin/Release/net462/CMDHelper.exe
-        asset_name: CMDHelper.exe
-        asset_content_type: application/octet-stream
+        path: bin/Release/net462/CMDHelper.exe
+        name: CMDHelper.exe
