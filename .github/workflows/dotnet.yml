@@ -22,15 +22,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Upload Artifacts
+    - name: Upload CMDHelper.exe
       uses: actions/upload-artifact@v3
       with:
-        name: dotnet-build-output
-        path: |
-          **/*.dll
-          **/*.exe
-          **/*.pdb
-          **/*.xml
+        name: CMDHelper-executable
+        path: bin/Release/net462/CMDHelper.exe
