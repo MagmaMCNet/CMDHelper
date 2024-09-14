@@ -1,13 +1,11 @@
-# This workflow will build a .NET project
+# This workflow will build a .NET project and attach the output to a release
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: .NET Release
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
+    types: [created]  # Trigger the workflow when a release is created
 
 jobs:
   build:
@@ -30,3 +28,10 @@ jobs:
       with:
         name: CMDHelper-executable
         path: bin/Release/net462/CMDHelper.exe
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: bin/Release/net462/CMDHelper.exe
+        asset_name: CMDHelper.exe
+        asset_content_type: application/octet-stream
